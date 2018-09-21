@@ -1,8 +1,8 @@
 import del from 'del';
-import webpack from 'webpack';
 import Promise from 'bluebird';
+import webpack from 'webpack';
 import run from './run';
-import webpackConfig from './webpack.config';
+import webpackConfig from '../webpack.config';
 
 async function clean() {
   await del(['build/*', '!build/.git']);
@@ -38,7 +38,7 @@ function bundle({ isWatch }) {
 async function build(options = { isWatch: false }) {
   await run(clean);
   await run(copy);
-  await run(bundle, options);
+  // await run(bundle, options);
 }
 
 export default build;
