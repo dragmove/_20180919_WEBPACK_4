@@ -73,6 +73,7 @@ module.exports = (env, argv) => {
     },
 
     output: {
+      // publicPath: '',
       path: path.resolve(__dirname, 'build'),
       filename: 'bundle.js'
     },
@@ -104,7 +105,7 @@ module.exports = (env, argv) => {
       usedExports: usedExports
     }
 
-    // TODO:
-    // https://webpack.js.org/concepts/entry-points/
+    // TODO: Read next articles
+    // https://webpack.js.org/concepts/mode/
   };
 };
