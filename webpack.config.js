@@ -9,6 +9,7 @@ module.exports = (env, argv) => {
   let usedExports = false;
 
   switch (argv.mode) {
+    // https://webpack.js.org/concepts/mode/#mode-development
     case 'development':
       devtool = 'eval-source-map';
 
@@ -37,6 +38,7 @@ module.exports = (env, argv) => {
       usedExports = false;
       break;
 
+    // https://webpack.js.org/concepts/mode/#mode-production
     case 'production':
       devtool = 'source-map';
 
@@ -81,18 +83,12 @@ module.exports = (env, argv) => {
     mode: 'development', // 'development' or 'production'. $webpack --mode=production
 
     module: {
+      // https://webpack.js.org/concepts/loaders/
       rules: [
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader'
-          }
-        },
-        {
-          test: /\.jsx?$/,
-          exclude: /node_modules/,
-          loader: 'eslint-loader'
+          use: [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }]
         }
       ]
     },
@@ -106,6 +102,6 @@ module.exports = (env, argv) => {
     }
 
     // TODO: Read next articles
-    // https://webpack.js.org/concepts/mode/
+    // https://webpack.js.org/concepts/plugins/
   };
 };
