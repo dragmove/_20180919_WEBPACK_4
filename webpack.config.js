@@ -102,6 +102,6 @@ module.exports = (env, argv) => {
     }
 
     // TODO: Read next articles
-    // https://webpack.js.org/concepts/plugins/
+    // https://webpack.js.org/concepts/targets/
   };
 };
