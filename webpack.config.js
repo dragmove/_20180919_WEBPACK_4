@@ -4,6 +4,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => {
   let devtool = '';
+  let devServer = {};
+  let plugins = [];
   let minimize = false;
   let minimizer = null;
   let usedExports = false;
@@ -11,7 +13,19 @@ module.exports = (env, argv) => {
   switch (argv.mode) {
     // https://webpack.js.org/concepts/mode/#mode-development
     case 'development':
+      // https://webpack.js.org/configuration/devtool/
       devtool = 'eval-source-map';
+
+      // https://webpack.js.org/configuration/dev-server/
+      devServer = {
+        color: true,
+        compress: true,
+        contentBase: path.join(__dirname, 'build'),
+        // host: '0.0.0.0',
+        // hot: true, // https://webpack.js.org/configuration/dev-server/#devserver-hot
+        port: 9000,
+        publicPath: '/' // https://webpack.js.org/configuration/dev-server/#devserver-publicpath-
+      };
 
       minimize = false;
 
@@ -36,6 +50,13 @@ module.exports = (env, argv) => {
       });
 
       usedExports = false;
+
+      plugins = [
+        // https://webpack.js.org/plugins/define-plugin/
+        new webpack.DefinePlugin({
+          // global constants in development mode
+        })
+      ];
       break;
 
     // https://webpack.js.org/concepts/mode/#mode-production
@@ -64,20 +85,23 @@ module.exports = (env, argv) => {
       });
 
       usedExports = true;
+
+      plugins = [
+        // https://webpack.js.org/plugins/define-plugin/
+        new webpack.DefinePlugin({
+          // global constants in development mode
+        })
+      ];
       break;
   }
 
   return {
     devtool: devtool,
 
+    devServer: devServer,
+
     entry: {
       client: './public/client.js'
-    },
-
-    output: {
-      // publicPath: '',
-      path: path.resolve(__dirname, 'build'),
-      filename: 'bundle.js'
     },
 
     mode: 'development', // 'development' or 'production'. $webpack --mode=production
@@ -93,15 +117,21 @@ module.exports = (env, argv) => {
       ]
     },
 
-    plugins: [new webpack.optimize.OccurrenceOrderPlugin()],
+    plugins: plugins,
 
     optimization: {
       minimize: minimize,
       minimizer: [minimizer],
       usedExports: usedExports
+    },
+
+    output: {
+      // publicPath: '',
+      path: path.resolve(__dirname, 'build'),
+      filename: 'bundle.js'
     }
 
     // TODO: Read next articles
-    // https://webpack.js.org/concepts/targets/
+    // https://webpack.js.org/configuration/target/
   };
 };
