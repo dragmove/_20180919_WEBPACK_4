@@ -1,16 +1,13 @@
 {
   "private": true,
-  "dependencies": {
-    "express": "4.15.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.2",
-    "bluebird": "^3.5.0",
-    "del": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-loader": "^2.1.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
@@ -20,9 +17,6 @@
   },
   "scripts": {
     "build:dev": "webpack -d",
-    "build:prod": "webpack -p",
-    "build": "babel-node tools/run build",
-    "serve": "babel-node tools/run serve",
-    "start": "babel-node tools/run start"
+    "build:prod": "webpack -p"
   }
 }
