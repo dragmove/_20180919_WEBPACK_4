@@ -1,4 +1,4 @@
-# webpack 4.x
+# webpack 4.x setting
 
 
 ## About

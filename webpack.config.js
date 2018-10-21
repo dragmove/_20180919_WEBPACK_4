@@ -138,6 +138,6 @@ module.exports = (env, argv) => {
 
     // TODO: Read next articles
     // https://webpack.js.org/concepts/hot-module-replacement/
-    // https://webpack.js.org/configuration/performance/
+    // https://webpack.js.org/api/hot-module-replacement/
   };
 };
