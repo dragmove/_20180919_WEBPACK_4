@@ -5,16 +5,17 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = (env, argv) => {
   let devtool = '';
   let devServer = {};
+  let externals = {};
   let plugins = [];
   let minimize = false;
   let minimizer = null;
   let usedExports = false;
+  let target = 'web';
 
   switch (argv.mode) {
     // https://webpack.js.org/concepts/mode/#mode-development
     case 'development':
-      // https://webpack.js.org/configuration/devtool/
-      devtool = 'eval-source-map';
+      devtool = 'eval-source-map'; // https://webpack.js.org/configuration/devtool/
 
       // https://webpack.js.org/configuration/dev-server/
       devServer = {
@@ -104,6 +105,8 @@ module.exports = (env, argv) => {
       client: './public/client.js'
     },
 
+    externals: externals, // https://webpack.js.org/configuration/externals/
+
     mode: 'development', // 'development' or 'production'. $webpack --mode=production
 
     module: {
@@ -129,9 +132,12 @@ module.exports = (env, argv) => {
       // publicPath: '',
       path: path.resolve(__dirname, 'build'),
       filename: 'bundle.js'
-    }
+    },
+
+    target: target // https://webpack.js.org/configuration/target/
 
     // TODO: Read next articles
-    // https://webpack.js.org/configuration/target/
+    // https://webpack.js.org/concepts/hot-module-replacement/
+    // https://webpack.js.org/configuration/performance/
   };
 };
