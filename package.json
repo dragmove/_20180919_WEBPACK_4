@@ -16,6 +16,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "scripts": {
+    "start:dev": "webpack-dev-server --mode development",
     "build:dev": "webpack -d",
     "build:prod": "webpack -p"
   }

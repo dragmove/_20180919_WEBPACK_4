@@ -3,12 +3,22 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => {
+  // https://webpack.js.org/configuration/dev-server/
+  let devServer = {
+    compress: true,
+    contentBase: __dirname, // path.join(__dirname, 'build'),
+    // host: '0.0.0.0',
+    hot: true, // https://webpack.js.org/configuration/dev-server/#devserver-hot
+    inline: true,
+    port: 9001,
+    publicPath: '/' // https://webpack.js.org/configuration/dev-server/#devserver-publicpath-
+  };
+
   let devtool = '';
-  let devServer = {};
   let externals = {};
   let plugins = [];
   let minimize = false;
-  let minimizer = null;
+  let minimizer = [];
   let usedExports = false;
   let target = 'web';
 
@@ -17,38 +27,29 @@ module.exports = (env, argv) => {
     case 'development':
       devtool = 'eval-source-map'; // https://webpack.js.org/configuration/devtool/
 
-      // https://webpack.js.org/configuration/dev-server/
-      devServer = {
-        color: true,
-        compress: true,
-        contentBase: path.join(__dirname, 'build'),
-        // host: '0.0.0.0',
-        // hot: true, // https://webpack.js.org/configuration/dev-server/#devserver-hot
-        port: 9000,
-        publicPath: '/' // https://webpack.js.org/configuration/dev-server/#devserver-publicpath-
-      };
-
       minimize = false;
 
       // https://github.com/webpack-contrib/uglifyjs-webpack-plugin
-      minimizer = new UglifyJsPlugin({
-        parallel: true,
-        sourceMap: false,
-        uglifyOptions: {
-          warnings: false,
-          compress: {
-            unused: false,
-            drop_console: false,
-            warnings: false
-          },
-          mangle: false,
-          output: {
-            beautify: true,
-            comments: true
-          },
-          keep_fnames: true
-        }
-      });
+      minimizer = [
+        new UglifyJsPlugin({
+          parallel: true,
+          sourceMap: false,
+          uglifyOptions: {
+            warnings: false,
+            compress: {
+              unused: false,
+              drop_console: false,
+              warnings: false
+            },
+            mangle: false,
+            output: {
+              beautify: true,
+              comments: true
+            },
+            keep_fnames: true
+          }
+        })
+      ];
 
       usedExports = false;
 
@@ -56,7 +57,8 @@ module.exports = (env, argv) => {
         // https://webpack.js.org/plugins/define-plugin/
         new webpack.DefinePlugin({
           // global constants in development mode
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin() // https://webpack.js.org/guides/hot-module-replacement/
       ];
       break;
 
@@ -66,24 +68,26 @@ module.exports = (env, argv) => {
 
       minimize = true;
 
-      minimizer = new UglifyJsPlugin({
-        parallel: true,
-        sourceMap: true,
-        uglifyOptions: {
-          warnings: false,
-          compress: {
-            unused: true,
-            drop_console: true,
-            warnings: true
-          },
-          mangle: true,
-          output: {
-            beautify: false,
-            comments: false
-          },
-          keep_fnames: false
-        }
-      });
+      minimizer = [
+        new UglifyJsPlugin({
+          parallel: true,
+          sourceMap: true,
+          uglifyOptions: {
+            warnings: false,
+            compress: {
+              unused: true,
+              drop_console: true,
+              warnings: true
+            },
+            mangle: false,
+            output: {
+              beautify: true,
+              comments: true
+            },
+            keep_fnames: false
+          }
+        })
+      ];
 
       usedExports = true;
 
@@ -124,7 +128,7 @@ module.exports = (env, argv) => {
 
     optimization: {
       minimize: minimize,
-      minimizer: [minimizer],
+      minimizer: minimizer,
       usedExports: usedExports
     },
 
@@ -137,7 +141,6 @@ module.exports = (env, argv) => {
     target: target // https://webpack.js.org/configuration/target/
 
     // TODO: Read next articles
-    // https://webpack.js.org/concepts/hot-module-replacement/
-    // https://webpack.js.org/api/hot-module-replacement/
+    // https://webpack.js.org/guides/asset-management/
   };
 };
