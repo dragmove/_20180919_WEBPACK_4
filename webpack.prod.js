@@ -32,15 +32,21 @@ module.exports = merge(common, {
             drop_console: true,
             warnings: true
           },
-          mangle: false,
+          mangle: true,
           output: {
-            beautify: true,
-            comments: true
+            beautify: false,
+            comments: false
           },
           keep_fnames: false
         }
       })
     ],
     usedExports: true
+
+    // code splitting
+    // https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks
+    // https://webpack.js.org/guides/code-splitting/#prevent-duplication
+    // https://webpack.js.org/guides/code-splitting/#dynamic-imports
+    // splitChunks: { chunks: 'all' }
   }
 });

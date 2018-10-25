@@ -1,8 +1,13 @@
+import _ from 'lodash';
 import { isDefined } from './utils';
-import { printHot } from './hot';
+import { printHot, name } from './hot';
 
 if (isDefined('wepback')) {
   console.log('client.js');
+}
+
+if (name) {
+  window.alert(_.join(['client', 'hot', 'util'], ' '));
 }
 
 // https://webpack.js.org/guides/hot-module-replacement/

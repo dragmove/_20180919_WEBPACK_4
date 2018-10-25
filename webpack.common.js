@@ -32,7 +32,7 @@ module.exports = {
   output: {
     // publicPath: '',
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
 
   target: 'web' // https://webpack.js.org/configuration/target/
