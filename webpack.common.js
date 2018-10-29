@@ -1,5 +1,3 @@
-const path = require('path');
-
 // https://webpack.js.org/guides/production/
 module.exports = {
   // devtool:
@@ -16,6 +14,7 @@ module.exports = {
 
   module: {
     // https://webpack.js.org/concepts/loaders/
+    // https://webpack.js.org/loaders/
     rules: [
       {
         test: /\.jsx?$/,
@@ -29,11 +28,7 @@ module.exports = {
 
   // optimization:
 
-  output: {
-    // publicPath: '',
-    path: path.resolve(__dirname, 'build'),
-    filename: '[name].bundle.js'
-  },
+  // output:
 
   target: 'web' // https://webpack.js.org/configuration/target/
 };

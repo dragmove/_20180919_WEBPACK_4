@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
@@ -41,12 +42,23 @@ module.exports = merge(common, {
         }
       })
     ],
-    usedExports: true
+    usedExports: true,
+
+    // https://webpack.js.org/configuration/optimization/#optimization-runtimechunk
+    // https://webpack.js.org/guides/caching/#extracting-boilerplate
+    runtimeChunk: 'single',
 
     // code splitting
     // https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks
     // https://webpack.js.org/guides/code-splitting/#prevent-duplication
     // https://webpack.js.org/guides/code-splitting/#dynamic-imports
-    // splitChunks: { chunks: 'all' }
+    splitChunks: { chunks: 'all' }
+  },
+
+  output: {
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'build')
+    // publicPath: ''
   }
 });
