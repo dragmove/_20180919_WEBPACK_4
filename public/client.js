@@ -1,27 +1,50 @@
+import _ from 'lodash';
 import { isDefined } from './utils';
 import { printHot } from './hot';
 
-if (isDefined('wepback')) {
-  console.log('client.js');
-}
+if (isDefined('hello client.js')) console.log('This is client.js');
 
-import _ from 'lodash';
+/*
+ * @babel/plugin-proposal-optional-chaining
+ */
+const obj = {
+  foo: {
+    bar() {
+      return 42;
+    }
+  }
+};
+
+// FIXME: obj.foo.bar()
+if (obj && obj.foo && obj.foo.bar) {
+  // console.log('obj.foo.bar() :', obj.foo.bar());
+  // console.log('obj.hello.bar() :', obj.hello.bar());
+}
+// TO:
+// console.log('obj?.foo?.bar() :', obj?.foo?.bar());
+// console.log('obj?.hello?.bar() :', obj?.hello?.bar());
+
+/*
+ * dynamic imports (https://webpack.js.org/guides/code-splitting/#dynamic-imports)
+ */
+document.body.appendChild(component());
 
 function component() {
-  var element = document.createElement('div');
-  var button = document.createElement('button');
-  var br = document.createElement('br');
+  let element = document.createElement('div');
+  let button = document.createElement('button');
+  let br = document.createElement('br');
 
   button.innerHTML = 'Click me and look at the console!';
+
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
   element.appendChild(br);
   element.appendChild(button);
 
   // Note that because a network request is involved, some indication
   // of loading would need to be shown in a production-level site/app.
-  button.onclick = e =>
+  button.onclick = evt =>
     import(/* webpackChunkName: "print" */ './print').then(module => {
-      var print = module.default;
+      const print = module.default;
 
       print();
     });
@@ -29,9 +52,9 @@ function component() {
   return element;
 }
 
-document.body.appendChild(component());
-
-// https://webpack.js.org/guides/hot-module-replacement/
+/*
+ * https://webpack.js.org/guides/hot-module-replacement/
+ */
 if (module.hot) {
   module.hot.accept('./hot.js', function() {
     console.log('Accepting the updated printHot module');

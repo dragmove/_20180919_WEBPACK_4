@@ -46,7 +46,7 @@ module.exports = merge(common, {
 
     // https://webpack.js.org/configuration/optimization/#optimization-runtimechunk
     // https://webpack.js.org/guides/caching/#extracting-boilerplate
-    runtimeChunk: 'single',
+    // runtimeChunk: 'single',
 
     // code splitting
     // https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks

@@ -4,9 +4,12 @@
   "devDependencies": {
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "aid.js": "^0.1.81",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.2",
     "clean-webpack-plugin": "^0.1.19",
