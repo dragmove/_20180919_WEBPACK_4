@@ -1,4 +1,13 @@
 {
+  "name": "project-name",
+  "version": "0.0.1",
+  "description": "project-description",
+  "keywords": [
+    "webpack4"
+  ],
+  "author": "",
+  "license": "MIT",
+  "main": "public/client.js",
   "private": true,
   "dependencies": {},
   "devDependencies": {

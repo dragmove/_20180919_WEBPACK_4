@@ -18,12 +18,17 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       // global constants in production mode
     })
+
+    // https://webpack.js.org/plugins/banner-plugin/
+    // TODO: https://github.com/webpack/webpack/issues/6630
+    // new webpack.BannerPlugin({ banner: 'hello world' })
   ],
 
   optimization: {
     minimize: true,
     minimizer: [
       new UglifyJsPlugin({
+        extractComments: false,
         parallel: true,
         sourceMap: true,
         uglifyOptions: {

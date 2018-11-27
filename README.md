@@ -5,6 +5,17 @@
 * webpack 4.x setting
 
 
+## NPM tasks
+* $npm run start:dev
+after run, connect http://localhost:9001/
+
+* $npm run build:dev
+build development js file (has console.log, comments)
+
+* $npm run build:prod
+build production js file (uglified. no console.log, comments, unused modules.)
+
+
 ## Contact
 * @Website : http://www.dragmove.xyz
 * @Blog : https://blog.naver.com/dragmove
