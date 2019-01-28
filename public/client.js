@@ -1,8 +1,37 @@
+// redux
+import configureStore from './redux/configureStore';
+
+// redux actions
+// import { ping } from './redux/actions/ping';
+import { updateNaviIndex } from './redux/actions/navi';
+// import { fetchServices } from './redux/actions/services';
+
 import _ from 'lodash';
 import { isDefined } from './utils';
 import { printHot } from './hot';
 
 if (isDefined('hello client.js')) console.log('This is client.js');
+
+/*
+ * redux
+ */
+const store = configureStore();
+let unsubscribeStore;
+
+setStore();
+
+function setStore() {
+  unsubscribeStore = store.subscribe(() => {
+    // render view
+    console.log('store.getState() :', store.getState());
+  });
+
+  console.log('unsubscribeStore :', unsubscribeStore);
+
+  // + dispatch actions
+  store.dispatch(updateNaviIndex(1, 3));
+  // store.dispatch(fetchServices());
+}
 
 /*
  * @babel/plugin-proposal-optional-chaining
