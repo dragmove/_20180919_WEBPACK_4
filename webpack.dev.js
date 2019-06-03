@@ -16,7 +16,7 @@ module.exports = merge(common, {
     hot: true, // https://webpack.js.org/configuration/dev-server/#devserver-hot
     inline: true,
     port: 9001,
-    publicPath: '/' // https://webpack.js.org/configuration/dev-server/#devserver-publicpath-
+    publicPath: '/', // https://webpack.js.org/configuration/dev-server/#devserver-publicpath-
   },
 
   mode: 'development', // 'development' or 'production'. $webpack --mode=development
@@ -29,7 +29,7 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       // global constants in development mode
     }),
-    new webpack.HotModuleReplacementPlugin() // https://webpack.js.org/guides/hot-module-replacement/
+    new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/guides/hot-module-replacement/
   ],
 
   optimization: {
@@ -43,24 +43,24 @@ module.exports = merge(common, {
           compress: {
             unused: false,
             drop_console: false,
-            warnings: false
+            warnings: false,
           },
           mangle: false,
           output: {
             beautify: true,
-            comments: true
+            comments: true,
           },
-          keep_fnames: true
-        }
-      })
+          keep_fnames: true,
+        },
+      }),
     ],
-    usedExports: false
+    usedExports: false,
   },
 
   output: {
     filename: '[name].js',
-    // chunkFilename: '[name].js',
-    path: path.resolve(__dirname, 'build')
+    chunkFilename: '[name].js',
+    path: path.resolve(__dirname, 'build'),
     // publicPath: ''
-  }
+  },
 });

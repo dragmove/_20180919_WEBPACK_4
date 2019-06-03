@@ -18,6 +18,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "acorn": "^6.1.1",
     "aid.js": "^0.1.81",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.2",
@@ -31,7 +32,7 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.3",
     "uglifyjs-webpack-plugin": "^2.0.1",
-    "webpack": "^4.19.0",
+    "webpack": "^4.32.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.9",
     "webpack-merge": "^4.1.4"

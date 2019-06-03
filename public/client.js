@@ -6,7 +6,7 @@ import configureStore from './redux/configureStore';
 import { updateNaviIndex } from './redux/actions/navi';
 // import { fetchServices } from './redux/actions/services';
 
-import _ from 'lodash';
+// import _ from 'lodash';
 import { isDefined } from './utils';
 import { printHot } from './hot';
 
@@ -45,30 +45,21 @@ import { printHot } from './hot';
   /*
    * dynamic imports (https://webpack.js.org/guides/code-splitting/#dynamic-imports)
    */
-  document.body.appendChild(component());
+  function getComponent() {
+    return import(/* webpackChunkName: "lodash" */ 'lodash')
+      .then(({ default: _ }) => {
+        const element = document.createElement('div');
+        element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-  function component() {
-    let element = document.createElement('div');
-    let button = document.createElement('button');
-    let br = document.createElement('br');
-
-    button.innerHTML = 'Click me and look at the console!';
-
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.appendChild(br);
-    element.appendChild(button);
-
-    // Note that because a network request is involved, some indication
-    // of loading would need to be shown in a production-level site/app.
-    button.onclick = evt =>
-      import(/* webpackChunkName: "print" */ './print').then(module => {
-        const print = module.default;
-
-        print();
-      });
-
-    return element;
+        return element;
+      })
+      .catch(error => 'An error occurred while loading the component');
   }
+
+  // implementation
+  getComponent().then(component => {
+    document.body.appendChild(component);
+  });
 
   /*
    * https://webpack.js.org/guides/hot-module-replacement/
